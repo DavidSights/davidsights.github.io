@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
   <title>Faint Sense</title>
   <meta
     name="description"
@@ -23,6 +26,7 @@
     html,
     body {
       min-height: 100%;
+      background-color: var(--bg);
     }
 
     body {
@@ -40,8 +44,11 @@
     }
 
     main {
-      min-height: 100svh;
-      padding: clamp(2rem, 4vw, 3rem) 1.5rem;
+      min-height: 100dvh;
+      padding:
+        max(clamp(2rem, 4vw, 3rem), env(safe-area-inset-top))
+        1.5rem
+        max(clamp(2rem, 4vw, 3rem), env(safe-area-inset-bottom));
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -97,14 +104,22 @@
 
     @media (max-width: 640px) {
       main {
-        padding: 1.5rem 1rem;
+        padding:
+          max(1.25rem, env(safe-area-inset-top))
+          1rem
+          max(1.25rem, env(safe-area-inset-bottom));
       }
 
       .brand {
         gap: 0.7rem;
       }
 
+      .brand-mark {
+        width: clamp(36px, 6vw, 54px);
+      }
+
       .brand-name {
+        font-size: clamp(1rem, 4.4vw, 1.5rem);
         letter-spacing: 0.18em;
         padding-left: 0.18em;
       }
