@@ -3,64 +3,154 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>David Seitz Jr</title>
+  <title>Faint Sense</title>
+  <meta
+    name="description"
+    content="Faint Sense carefully crafts software for the future."
+  />
   <style>
+    :root {
+      --bg: #e0dbd2;
+      --glow: rgba(255, 255, 255, 0.94);
+      --ink: #2d2d2d;
+      --muted: #3c3c3c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      background: #0a0a0a;
-      color: #fff;
+      color: var(--ink);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 50% 10%, var(--glow) 0, rgba(255, 255, 255, 0.84) 12%, rgba(255, 255, 255, 0) 34%),
+        radial-gradient(circle at 15% 30%, rgba(255, 255, 255, 0.78) 0, rgba(255, 255, 255, 0) 30%),
+        radial-gradient(circle at 85% 32%, rgba(255, 255, 255, 0.78) 0, rgba(255, 255, 255, 0) 28%),
+        radial-gradient(circle at 50% 58%, rgba(255, 255, 255, 0.64) 0, rgba(255, 255, 255, 0) 34%),
+        linear-gradient(180deg, #ede8de 0%, #cbc4b8 100%);
+      background-attachment: fixed;
+    }
+
+    main {
+      min-height: 100svh;
+      padding: clamp(2rem, 4vw, 3rem) 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
-      padding: 2rem;
+      justify-content: space-between;
       text-align: center;
     }
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-      color: #ffffff; /* changed from #ff7a00 to white */
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.85rem;
+      padding-top: clamp(1rem, 3vh, 2rem);
     }
 
-    h2 {
+    .brand-mark {
+      width: clamp(72px, 7.5vw, 108px);
+      height: auto;
+      display: block;
+    }
+
+    .brand-name {
+      margin: 0;
+      padding-left: 0.24em;
+      font-size: clamp(2rem, 3vw, 3rem);
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .message {
+      margin: 0;
+      padding: 0 1rem;
+      font-size: clamp(1.8rem, 3.2vw, 3rem);
       font-weight: 400;
-      font-size: 1.5rem;
-      color: #bbbbbb;
-      margin-top: 0;
-      margin-bottom: 2rem;
+      line-height: 1.2;
+      color: var(--muted);
     }
 
-    p {
-      max-width: 600px;
-      line-height: 1.6;
-      font-size: 1.1rem;
-      color: #dddddd;
+    .contact {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: clamp(1.1rem, 1.7vw, 1.45rem);
+      line-height: 1.3;
+      transition: opacity 160ms ease;
     }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
+    .contact:hover,
+    .contact:focus-visible {
+      opacity: 0.7;
+    }
+
+    @media (max-width: 640px) {
+      main {
+        padding: 1.5rem 1rem;
       }
 
-      h2 {
-        font-size: 1.2rem;
+      .brand {
+        gap: 0.7rem;
       }
 
-      p {
-        font-size: 1rem;
+      .brand-name {
+        letter-spacing: 0.18em;
+        padding-left: 0.18em;
       }
     }
   </style>
 </head>
 <body>
-  <h1>David Seitz Jr</h1>
-  <h2>Mobile Software Engineer</h2>
-  <p>
-    I'm an iOS developer with 10 years of experience, earned working at companies like <strong>The Washington Post</strong>, <strong>Newsy</strong>, and <strong>Rally Health</strong>. While the tech industry has become more difficult for job seekers, I've continued to deepen my skills in iOS development by working on personal projects, expected to be announced soon. 
-  </p>
+  <main>
+    <header class="brand" aria-label="Faint Sense">
+      <img
+        class="brand-mark"
+        src="faint-sense-logo.svg"
+        alt="Faint Sense logo"
+        width="108"
+        height="108"
+        fetchpriority="high"
+      />
+      <h1 class="brand-name">Faint Sense</h1>
+    </header>
+
+    <p class="message" id="message">Following intuitions</p>
+
+    <a class="contact" href="mailto:hello@faintsense.com">hello@faintsense.com</a>
+  </main>
+  <script>
+    const messages = [
+      "Crafting software for the future",
+      "Cooking up fresh concepts",
+      "Bringing ideas to life",
+      "Trying something new",
+      "Building what comes next",
+      "Shaping ideas into reality",
+      "Making useful things happen",
+      "Designing for what's ahead",
+      "Turning thoughts into motion",
+      "Building from curiosity",
+      "Working on what could be",
+      "Following intuitions"
+    ];
+
+    const messageElement = document.getElementById("message");
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
+    if (messageElement) {
+      messageElement.textContent = randomMessage;
+    }
+  </script>
 </body>
 </html>
