@@ -6,6 +6,7 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   />
+  <meta name="theme-color" content="#e0dbd2" />
   <title>Faint Sense</title>
   <meta
     name="description"
@@ -33,6 +34,14 @@
       margin: 0;
       color: var(--ink);
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
       background-color: var(--bg);
       background-image:
         radial-gradient(circle at 50% 10%, var(--glow) 0, rgba(255, 255, 255, 0.84) 12%, rgba(255, 255, 255, 0) 34%),
@@ -40,7 +49,8 @@
         radial-gradient(circle at 85% 32%, rgba(255, 255, 255, 0.78) 0, rgba(255, 255, 255, 0) 28%),
         radial-gradient(circle at 50% 58%, rgba(255, 255, 255, 0.64) 0, rgba(255, 255, 255, 0) 34%),
         linear-gradient(180deg, #ede8de 0%, #cbc4b8 100%);
-      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
     }
 
     main {
