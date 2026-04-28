@@ -83,6 +83,27 @@
       font-weight: 400;
       line-height: 1.2;
       color: var(--muted);
+      opacity: 0;
+      transition: opacity 900ms ease;
+    }
+
+    .message.is-visible {
+      opacity: 1;
+    }
+
+    .message-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .message-subtext {
+      margin: 0;
+      padding: 0 1rem;
+      font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+      line-height: 1.4;
+      color: rgba(60, 60, 60, 0.8);
     }
 
     .contact {
@@ -136,7 +157,10 @@
       <h1 class="brand-name">Faint Sense</h1>
     </header>
 
-    <p class="message" id="message">Following intuitions</p>
+    <div class="message-group">
+      <p class="message" id="message">Following intuitions</p>
+      <p class="message-subtext">New release coming. Check back soon.</p>
+    </div>
 
     <a class="contact" href="mailto:hello@faintsense.com">hello@faintsense.com</a>
   </main>
@@ -157,10 +181,65 @@
     ];
 
     const messageElement = document.getElementById("message");
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    const fadeDuration = 900;
+    const visibleDuration = 3000;
+    let messageQueue = [];
+    let currentIndex = 0;
+
+    function shuffle(items) {
+      const nextItems = [...items];
+
+      for (let index = nextItems.length - 1; index > 0; index -= 1) {
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+        const temp = nextItems[index];
+        nextItems[index] = nextItems[randomIndex];
+        nextItems[randomIndex] = temp;
+      }
+
+      return nextItems;
+    }
+
+    function getNextMessage() {
+      if (messageQueue.length === 0 || currentIndex >= messageQueue.length) {
+        messageQueue = shuffle(messages);
+        currentIndex = 0;
+      }
+
+      const nextMessage = messageQueue[currentIndex];
+      currentIndex += 1;
+      return nextMessage;
+    }
+
+    function cycleMessages() {
+      if (!messageElement) {
+        return;
+      }
+
+      messageElement.classList.remove("is-visible");
+
+      window.setTimeout(() => {
+        messageElement.textContent = getNextMessage();
+        messageElement.classList.add("is-visible");
+
+        window.setTimeout(() => {
+          messageElement.classList.remove("is-visible");
+
+          window.setTimeout(cycleMessages, fadeDuration);
+        }, visibleDuration);
+      }, fadeDuration);
+    }
 
     if (messageElement) {
-      messageElement.textContent = randomMessage;
+      messageQueue = shuffle(messages);
+      messageElement.textContent = getNextMessage();
+      requestAnimationFrame(() => {
+        messageElement.classList.add("is-visible");
+      });
+
+      window.setTimeout(() => {
+        messageElement.classList.remove("is-visible");
+        window.setTimeout(cycleMessages, fadeDuration);
+      }, visibleDuration);
     }
   </script>
 </body>
